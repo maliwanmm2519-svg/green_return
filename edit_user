@@ -1,0 +1,127 @@
+<?php include("config.php");?>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add_user</title>
+    <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <br>
+
+    <div class="container">
+
+   <center> <h2 style=" fst-normal" >แก้ไขข้อมูลสมาชิก</h2> </center>
+   
+    <br>
+
+    <?php
+       $sql="select*from user where id='".$_GET['id']."'";
+       $res=$conn->query($sql);
+       $arr=$res->fetch();
+       ?>
+
+     <form action="update_user.php?id=<?php echo $arr['id'];?>" method="POST" name="add_user">
+  
+     <div class="mb-3 row">
+              <label for="id" class="sm:col-2 col-form-label">User</label>
+              <div class="sm:col-10">
+                 <input type="text" class="form-control" name="id" value="<?php echo $arr['id'];?>" >
+             </div>
+        </div>
+       
+
+        
+        <div class="mb-3 row">
+              <label for="user" class="sm:col-2 col-form-label">User</label>
+              <div class="sm:col-10">
+                 <input type="text" class="form-control" name="user" value="<?php echo $arr['user'];?>" >
+             </div>
+        </div>
+
+        <div class="mb-3 row">
+              <label for="password" class="sm:col-2 col-form-label">Password</label>
+              <div class="sm:col-10">
+                 <input type="password" class="form-control" name="password" value="<?php echo $arr['password'];?>">
+             </div>
+         </div>
+
+         <div class="mb-3 row">
+              <label for="text" class="sm:col-2 col-form-label">Name</label>
+              <div class="sm:col-10">
+                 <input type="text" class="form-control" name="name" value="<?php echo $arr['name'];?>">
+             </div>
+         </div>
+
+         <div class="mb-3 row">
+              <label for="text" class="sm:col-2 col-form-label">Phone</label>
+              <div class="sm:col-10">
+                 <input type="phone" class="form-control" name="phone" value="<?php echo $arr['phone'];?>">
+             </div>
+         </div>
+
+         <div class="mb-3 row">
+              <label for="text" class="sm:col-2 col-form-label">Email</label>
+              <div class="sm:col-10">
+                 <input type="email" class="form-control" name="mail" value="<?php echo $arr['mail'];?>">
+             </div>
+         </div>
+        
+         <div class="mb-3 row">
+              <label for="text" class="sm:col-2 col-form-label"></label>
+              <div class="sm:col-10">
+                 <input type="submit" name="submit" class="btn-solid theme-primary" value="บันทึก">
+                 <input type="reset" name="reset" class="btn-solid theme-warning" value="รีเซ็ท">
+                 <a href="#" class="btn-solid theme-danger">ยกเลิก</a>
+             </div>
+         </div>
+
+     </form>
+
+
+     <table class="table table-hover"> 
+         <thead>
+            <tr>
+                <th>ID</th>
+                <th>Username</th>
+                <th>Password</th>
+                <th>ชือนามสกุล</th>
+                <th>เบอร์โทร</th>
+                <th>Email</th>
+                <th>Manage</th>
+           </tr>
+         </thead>
+        <tbody>
+        <?php
+        $sql="select*from user";
+        $res=$conn->query($sql);
+        while($arr=$res->fetch()){
+        ?>
+        
+        <tr>
+            <td><?php echo $arr['id'];?></td>
+            <td><?php echo $arr['user'];?></td>
+            <td><?php echo $arr['password'];?></td>
+            <td><?php echo $arr['name'];?></td>
+            <td><?php echo $arr['phone'];?></td>
+            <td><?php echo $arr['mail'];?></td>
+            <td>
+            <a href="delete.php?id=<?php echo $arr['id'];?>" 
+            class="btn-solid btn-sm theme-danger"
+            onclick="return confirm('คุณแน่ใจว่าต้องการลบข้อมูลนี้หรือไม่?')">Delete</a>
+            <a href="edit_user.php?id=<?php echo $arr['id'];?>" 
+            class="btn-solid btn-sm theme-warning">Edit</a> </td>
+        </tr>
+    
+    <?php
+        }
+        ?>
+        </tbody>
+
+
+     </table>
+    </div>
+</body>
+</html>
