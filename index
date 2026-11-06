@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=, initial-scale=1.0">
+    <title>หน้าหลัก Green_return</title>
+    <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <form name="add_user" action="save.php" method="POST">
+   ชื่อผู้ใช้ (User) <input type="text" name="user" class="form-control" required>
+   รหัสผ่าน (Password) <input type="text" name="password" class="form-control" required>
+   ชื่อนามสกุล (Name) <input type="text" name="name" class="form-control" required>
+   เบอร์โทร (Number) <input type="text" name="phone" class="form-control" required>
+   อีเมล (Email) <input type="text" name="mail" class="form-control" required>
+   <input type="submit" name="submit" class="btn-solid theme-primary" value="บันทึก">
+   <input type="reset" name="reset" class="btn-solid theme-warning" value="ล้างข้อมูล">
+   <a href="#" class="btn-solid theme-danger">ยกเลิก</a>
+ 
+</form>
+</body>
+</html>
