@@ -1,0 +1,19 @@
+<?php include("config.php");
+$id=$_GET['id'];
+$user=$_POST['user'];
+$password=$_POST['password'];
+$name=$_POST['name'];
+$phone=$_POST['phone'];
+$mail=$_POST['mail'];
+
+$sql=$conn->exec("UPDATE user SET
+user='$user',
+password='$password',
+name='$name',
+phone='$phone',
+mail='$mail'
+
+where id=$id");
+echo $sql;
+header("Location:add_user.php")
+?> 
