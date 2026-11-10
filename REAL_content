@@ -1,0 +1,110 @@
+<?php
+session_start();
+include('config.php');
+
+$row = [];
+if(isset($_SESSION['user'])){
+    $username = $_SESSION['user'];
+    $sql = "SELECT * FROM user WHERE user = '$username'";
+    $res = $conn->query($sql);
+    if($res){
+        $row = $res->fetch(PDO::FETCH_ASSOC);
+    }
+}
+?>
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ข้อมูลสมาชิกของคุณ - LOOP CUP</title>
+    <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-image: url('https://images.pexels.com/photos/1055054/pexels-photo-1055054.jpeg?cs=srgb&dl=pexels-igor-starkov-233202-1055054.jpg&fm=jpg&_gl=1*mkyppu*_ga*NDMzNDA1MDYxLjE3OTQwNzA1MDk.*_ga_8JE65Q40S6*czE3OTQxMDY1MzQkbzIkZzEkdDE3OTQxMDY2MjkkajMwJGwwJGgw');
+            background-size: cover;
+            background-position: center;
+            min-height: 100vh;
+            padding-top: 60px;
+        }
+        .profile-card {
+            background: rgba(0, 0, 0, 0.85);
+            border-radius: 20px;
+            padding: 40px;
+            color: white;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.5);
+        }
+        .point-box {
+            background: #ffc107;
+            color: #000000;
+            border-radius: 12px;
+            padding: 15px;
+            font-size: 38px;
+            font-weight: bold;
+            margin: 20px 0;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-5">
+           
+            <div class="profile-card">
+                <h2 class="text-center" style="font-size: 40px; font-weight: bold;">LOOP🦉CUP</h2>
+                <p class="text-center text-muted">ข้อมูลคะแนนสะสมของคุณ</p>
+                <hr style="border-color: #444;">
+
+
+                <p class="mb-1 text-center" style="font-size: 16px; color: #ddd;">คะแนนสะสมปัจจุบัน</p>
+                <div class="point-box">
+                    <?php echo htmlspecialchars($row['point'] ?? '0'); ?> <span style="font-size: 20px;">คะแนน</span>
+                </div>
+
+
+                <div class="mt-4 p-3 rounded" style="background: rgba(255,255,255,0.05);">
+                    <div class="row mb-2">
+                        <div class="col-4 text-muted">User ID :</div>
+                        <div class="col-8"><strong><?php echo htmlspecialchars($row['user']); ?></strong></div>
+                    </div>
+                    <div class="row mb-2">
+                        <div class="col-4 text-muted">ชื่อ-สกุล :</div>
+                        <div class="col-8" style="color: #ffffff;"><?php echo htmlspecialchars($row['name'] ?? '-'); ?></div>
+                    </div>
+                    <div class="row mb-2">
+                        <div class="col-4 text-muted">เบอร์โทร :</div>
+                        <div class="col-8" style="color: #ffffff;"><?php echo htmlspecialchars($row['phone'] ?? '-'); ?></div>
+                    </div>
+                    <div class="row mb-2">
+                        <div class="col-4 text-muted">แก้วที่ใช้ :</div>
+                        <div class="col-8" style="color: #ffffff;">
+                            <span class="badge bg-secondary" style="font-size: 14px;"><?php echo htmlspecialchars($row['size'] ?? '-'); ?></span>
+                            <?php echo htmlspecialchars($row['type'] ?? ''); ?>
+                        </div>
+                    </div>
+                    <div class="row mb-0">
+                        <div class="col-4 text-muted">วันที่อัปเดต :</div>
+                        <div class="col-8" style="font-size: 14px; color: #aaa;"><?php echo htmlspecialchars($row['date'] ?? '-'); ?></div>
+                    </div>
+                </div>
+
+
+                <br><br>
+                <a href="logout.php" class="btn btn-outline-danger w-100" style="font-weight: bold;">ออกจากระบบ</a>
+            </div>
+
+
+        </div>
+    </div>
+</div>
+
+
+</body>
+</html>
+
+
