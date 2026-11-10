@@ -1,0 +1,14 @@
+<?php include("config.php");
+$sql="insert into user(user,password,name,phone,size,point)
+value(
+'".$_POST['user']."',
+'".$_POST['password']."',
+'".$_POST['name']."',
+'".$_POST['phone']."',
+'".$_POST['size']."',
+'".$_POST['point']."'
+)";
+$res = $conn->exec($sql);
+header('Location:add_user.php')
+
+?>
