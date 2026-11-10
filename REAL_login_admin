@@ -1,0 +1,65 @@
+<?php
+session_start();
+include('config.php');
+
+
+if (isset($_POST['login'])) {
+    // บังคับใน SQL ว่าต้องเป็น 'Ktp24' เท่านั้น และรหัสผ่านตรงกัน
+    $sql = "SELECT * FROM user WHERE user = 'nongvear' AND password = :p";
+    $stmt = $conn->prepare($sql);
+    $stmt->execute([':p' => $_POST['password']]);
+    $row = $stmt->fetch();
+
+
+    if ($row) {
+        $_SESSION['admin_user'] = $row['user'];
+        header("Location: add_user.php");
+        exit();
+    } else {
+        echo "<script>alert('คุณไม่มีสิทธิ์เข้าถึงระบบผู้ดูแลระบบ หรือรหัสผ่านผิด');</script>";
+    }
+}
+?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Admin Login</title>
+    <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+
+    <style>
+        body{
+            background-image: url('https://images.pexels.com/photos/14212146/pexels-photo-14212146.jpeg?cs=srgb&dl=pexels-attaporn-lholamlert-1073800-14212146.jpg&fm=jpg&_gl=1*1h71qnv*_ga*NDMzNDA1MDYxLjE3OTQwNzA1MDk.*_ga_8JE65Q40S6*czE3OTQxMDY1MzQkbzIkZzEkdDE3OTQxMDc5ODUkajI4JGwwJGgw');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            min-height: 100vh;
+        }
+    </style>
+
+
+   
+</head>
+<body class="bg-dark d-flex align-items-center justify-content-center" style="min-height: 100vh;">
+    <div class="card p-4 shadow bg-secondary text-white" style="width: 100%; max-width: 400px;">
+        <h2 class="text-center mb-3">Admin🦉Portal</h2>
+        <p class="text-center text-warning" style="font-size: 14px;">(สิทธิ์เข้าถึงเฉพาะผู้ดูแลระบบหลักเท่านั้น)</p>
+        <form action="" method="POST">
+            <div class="mb-3">
+                <label class="form-label">Admin ID :</label>
+                <!-- แก้ไขตรงนี้: เปลี่ยนคำใบ้เป็น "ระบุรหัสแอดมิน" เพื่อไม่ให้คนอื่นรู้ ID จริงครับ -->
+                <input type="text" class="form-control" name="user" placeholder="กรอกข้อมูล" required>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Password :</label>
+                <input type="password" class="form-control" name="password" placeholder="กรอกรหัสผ่าน" required>
+            </div>
+            <button type="submit" name="login" class="btn btn-warning w-100 fw-bold">เข้าสู่ระบบ</button>
+        </form>
+    </div>
+</body>
+</html>
+
+
+
