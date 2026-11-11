@@ -1,13 +1,20 @@
 <?php include("config.php");
-$sql="insert into user(user,password,name,phone,point)
-value(
-'".$_POST['user']."',
-'".$_POST['password']."',
-'".$_POST['name']."',
-'".$_POST['phone']."',
-'".$_POST['point']."'
-)";
-$res = $conn->exec($sql);
-header('Location:login.php')
+$id=$_GET['id'];
+$user=$_POST['user'];
+$password=$_POST['password'];
+$name=$_POST['name'];
+$phone=$_POST['phone'];
+$point=$_POST['point'];
 
+$sql=$conn->exec("UPDATE user SET 
+user='$user',
+password='$password',
+name='$name',
+phone='$phone',
+point='$point',
+date=NOW()
+
+where id=$id");
+echo $sql;
+header("Location:admin.php")
 ?>
