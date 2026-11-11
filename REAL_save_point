@@ -1,0 +1,32 @@
+<?php
+include("config.php");
+
+$phone = $_POST['phone'];
+$size = $_POST['size'];
+
+$add_point = 1;
+if ($size == 'medium') {$add_point = 2;} 
+
+else if ($size == 'large') {$add_point = 3;}
+
+$sql_check = "SELECT * FROM user WHERE phone = '$phone'";
+$res = $conn->query($sql_check);
+$row = $res->fetch(PDO::FETCH_ASSOC);
+
+if ($row) 
+   {$new_point = $row['point'] + $add_point;
+    $today = date('Y-m-d');
+
+    $sql_update = "UPDATE user SET size = '$size', point = '$new_point', date = '$today' WHERE phone = '$phone'";
+    $conn->exec($sql_update);
+
+    echo "<script>
+        alert('เพิ่มคะแนนสำเร็จ! คะแนนปัจจุบันของลูกค้าคือ: $new_point คะแนน');
+        window.location='add_point.php';
+    </script>";} 
+
+else {echo "<script>
+        alert('ไม่พบข้อมูลเบอร์โทรศัพท์นี้ในระบบ');
+        window.location='add_point.php';
+        </script>";}
+?>
