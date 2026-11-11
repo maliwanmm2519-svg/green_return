@@ -9,7 +9,15 @@
 
 if($row){
 $_SESSION['user'] = $row['user'];
+$_SESSION['id'] = $row['id'];
 header("Location:content.php");
+exit();}
+
+else {
+echo "<script>
+alert('ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง!');
+window.location='login.php';
+</script>";
 exit();}
 
 ?>
