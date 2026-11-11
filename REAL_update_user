@@ -1,0 +1,24 @@
+<?php 
+include("config.php");
+
+$id = $_GET['id'];
+$user = $_POST['user'];
+$password = $_POST['password'];
+$name = $_POST['name'];
+$phone = $_POST['phone'];
+$point = $_POST['point'];
+
+$sql = "UPDATE user SET 
+    user='$user',
+    password='$password',
+    name='$name',
+    phone='$phone',
+    point='$point',
+    date=NOW()
+    WHERE id='$id'";
+
+$conn->exec($sql);
+
+header("Location: content.php");
+exit();
+?>
