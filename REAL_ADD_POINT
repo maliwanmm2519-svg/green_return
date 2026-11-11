@@ -1,0 +1,60 @@
+<?php include("config.php");?>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>เพิ่มคะแนน</title>
+    <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <br>
+    <br>
+    <br>
+    <div class="container mt-5" style="max-width: 450px;">
+        <div class="card shadow p-4">
+            
+            <h2 class="text-center mb-3">GREEN 🌳 RETURN</h2>
+            <p class="text-center text-muted mb-4">เพิ่มคะแนนสะสมสำหรับพนักงาน</p>
+
+            <form action="save_point.php" method="POST">
+                
+    
+                <div class="mb-3">
+                    <label for="phone" class="form-label">เบอร์โทรศัพท์ลูกค้า</label>
+                    <input type="text" class="form-control" name="phone" id="phone" placeholder="เช่น 0812345678" required>
+                </div>
+
+
+                <div class="mb-4">
+                    <label for="size" class="form-label">ไซส์แก้ว</label>
+                    <select class="form-select form-control w-100" name="size" id="size" required>
+                        <?php
+
+                        $sql_size = "SELECT * FROM size";
+                        $res_size = $conn->query($sql_size);
+
+                        while ($row_size = $res_size->fetch(PDO::FETCH_ASSOC)) {
+                            $s = $row_size['size'];
+                            
+                        
+                            $point_label = "";
+                            if ($s == 'small') $point_label = " (+1 คะแนน)";
+                            else if ($s == 'medium') $point_label = " (+2 คะแนน)";
+                            else if ($s == 'large') $point_label = " (+3 คะแนน)";
+
+                            echo "<option value='$s'>$s$point_label</option>";
+                        }
+                        ?>
+                    </select>
+                    <br>
+                <button type="submit" class="btn-solid theme-primary w-100 py-2">บันทึกเพิ่มคะแนน</button>
+
+                </form>
+
+        </div>
+    </div>
+    
+</body>
+</html>
