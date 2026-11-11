@@ -5,7 +5,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>แก้ไขข้อมูล</title>
     <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
     <style>
@@ -22,158 +22,66 @@
 <body>
     <br><br><br>
     <div class="container">
-    <br>
-    <center><h1 style="color: #ffffff; font-size: 50px;">TEST🌳GREEN</h1></center>
-    <br>
-
-    <?php
-    $sql="select*from user where id='".$_GET['id']."'";
-    $res=$conn->query($sql);
-    $arr=$res->fetch();
-    ?>
-    
-    <form action="save.php" method="POST" name="add_user">
+        <br>
+        <center><h1 style="color: #ffffff; font-size: 50px;">แก้ไขข้อมูล</h1></center>
         <br>
 
-        <div class="mb-9 row">
-        <label for="id" class="sm:col-2  col-form-label">ID</label>
-        <div class="sm:col-8">
-        <input type="text" class="form-control" value="<?php echo $arr['id'];?>">
-        </div>
-    </div>
-    <br>
-    
-    <div class="mb-9 row">
-        <label for="user" class="sm:col-2  col-form-label">User</label>
-        <div class="sm:col-8">
-        <input type="text" class="form-control" value="<?php echo $arr['user'];?>">
-        </div>
-    </div>
-    <br>
-
-    <div class="mb-9 row">
-        <label for="password" class="sm:col-2 col-form-label">รหัส</label>
-        <div class="sm:col-8">
-        <input type="password" class="form-control" value="<?php echo $arr['password'];?>">
-        </div>
-    </div>
-    <br>
-
-
-    <div class="mb-9 row">
-        <label for="name" class="sm:col-2 col-form-label">ชื่อ-สกุล</label>
-        <div class="sm:col-8">
-        <input type="text" class="form-control" value="<?php echo $arr['name'];?>">
-        </div>
-    </div>
-    <br>
-
-
-    <div class="mb-9 row">
-        <label for="phone" class="sm:col-2 col-form-label">เบอร์โทร</label>
-        <div class="sm:col-8">
-        <input type="text" class="form-control" value="<?php echo $arr['phone'];?>">
-        </div>
-    </div>
-    <br>
-
-
-<div class="mb-9 row">
-        <label for="size" class="sm:col-2 col-form-label">Size</label>
-        <div class="sm:col-8">
-        <select type="size" class="form-control" name="size">
-    <?php 
-    $sql="select*from size";
-    $res=$conn->query($sql);
-    while($arr=$res->fetch())
-        {
-        ?>
-            <option><?php echo $arr['size'];?></option>
-            
         <?php
-        }
+        $sql="select*from user where id='".$_GET['id']."'";
+        $res=$conn->query($sql);
+        $arr=$res->fetch();
         ?>
-        </select>
-
-        </div>
-    </div>
-    <?php
-    $sql="select*from user where id='".$_GET['id']."'";
-    $res=$conn->query($sql);
-    $arr=$res->fetch();
-    ?>
-
-
-
     
-    <div class="mb-9 row">
-        <label for="point" class="sm:col-2 col-form-label">Point</label>
-        <div class="sm:col-8">
-        <input type="text" class="form-control" value="<?php echo $arr['point'];?>">
-        </div>
-    </div>
-    <br>
+        <form action="update_user.php?id=<?php echo $arr['id'];?>" method="POST" name="add_user">
+        <br>
+    
+            <div class="mb-9 row">
+            <label for="user" class="sm:col-2  col-form-label">User</label>
+                <div class="sm:col-8">
+                <input type="text" class="form-control" name="user" value="<?php echo $arr['user'];?>">
+                </div>
+            </div>
+            <br>
+
+            <div class="mb-9 row">
+             <label for="password" class="sm:col-2 col-form-label">รหัส</label>
+                <div class="sm:col-8">
+                <input type="password" class="form-control" name="password" value="<?php echo $arr['password'];?>">
+                </div>
+            </div>
+            <br>
 
 
-    <div class="mb-9 row">
-        <label for="submit" class="sm:col-2 col-form-label"></label>
-        <div class="sm:col-8">
-        <input type="submit" name="submit" class="btn-solid sm theme-primary" value="บันทึก">
-        <input type="reset" name="reset" class="btn-solid sm theme-warning" value="ล้าง">
-        <a href="#" class="btn-solid sm theme-danger">ยกเลิก</a>
-        </div>
-    </div>
+            <div class="mb-9 row">
+             <label for="name" class="sm:col-2 col-form-label">ชื่อ-สกุล</label>
+                <div class="sm:col-8">
+                <input type="text" class="form-control" name="name" value="<?php echo $arr['name'];?>">
+                </div>
+            </div>
+            <br>
+
+
+            <div class="mb-9 row">
+            <label for="phone" class="sm:col-2 col-form-label">เบอร์โทร</label>
+                <div class="sm:col-8">
+                <input type="text" class="form-control" name="phone" value="<?php echo $arr['phone'];?>">
+                </div>
+            </div>
+    
+            <br>
+
+            <div class="mb-9 row">
+                <label for="submit" class="sm:col-2 col-form-label"></label>
+                <div class="sm:col-8">
+                <input type="submit" name="submit" class="btn-solid sm theme-primary" value="บันทึก">
+                <input type="reset" name="reset" class="btn-solid sm theme-warning" value="ล้าง">
+                <a href="#" class="btn-solid sm theme-danger">ยกเลิก</a>
+                </div>
+            </div>
+    </form>
     <br><br>
 
-    <table class="table table-hover">
-        <thead>
-            <tr>
-                <th>id</th>
-                <th>User</th>
-                <th>รหัส</th>
-                <th>ชื่อ-สกุล</th>
-                <th>เบอร์โทร</th>
-                <th>Size</th>
-                <th>Point</th>
-                <th>Date</th>
-                <th>Manage</th>
-            </tr>
-        </thead>
-
-         <tbody>
-        <?php
-        $sql="select*from user";
-        $res=$conn->query($sql);
-        while($arr=$res->fetch())   
-        {
-            ?>
-            <tr>
-            <td><?php echo $arr['id'];?></td>
-            <td><?php echo $arr['user'];?></td>
-            <td><?php echo $arr['password'];?></td>
-            <td><?php echo $arr['name'];?></td>
-            <td><?php echo $arr['phone'];?></td>
-            <td><?php echo $arr['size'];?></td>
-            <td><?php echo $arr['point'];?></td>
-            <td><?php echo $arr['date'];?></td>
-            <td><a href="deletle_user.php?id=<?php echo $arr['id'];?>"
-            class="btn-solid btn-sm theme-danger"
-            onclick="return confirm('คุณแน่ใจว่าต้องการลบข้อมูลหรือไม่?');">Delete</a>
-            <a href="edit_user.php?id=<?php echo $arr['id'];?>"
-            class="btn-solid btn-sm theme-warning"
-            onclick="return confirm('คุณแน่ใจว่าต้องการแก้ไขข้อมูลหรือไม่?');">Edit</a>
-            </td>
-
-         </tr>
-        <?php
-        }
-        ?>
-
-       </tbody>
-
-    </table>
-
-</form>
+    
 
 </div>
 
