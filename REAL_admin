@@ -1,0 +1,161 @@
+<?php
+session_start();
+if (!isset($_SESSION['admin_user']) || $_SESSION['admin_user'] !== 'nongvear') {
+    header("Location: login_admin.php"); // ถ้ายังไม่ล็อกอิน ดีดกลับไปหน้า login_admin.php
+    exit();
+}
+include("config.php"); 
+?>
+
+<?php include("config.php"); ?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>แก้ไขข้อมูล - Admin</title>
+    <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        body{
+            background-image: url('img/unnamed.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            min-height: 100vh;
+        }
+        .box-container {
+            background-color: #000000;
+            padding: 25px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+    <br>
+    <center><h1 style="color: #ffffff; font-size: 50px; text-shadow: 2px 2px 5px #000;">TEST🌳GREEN</h1></center>
+    <br>
+
+    <?php
+    // เช็กก่อนว่ามีการคลิกปุ่ม Edit เพื่อส่ง id มาหรือไม่ (แก้ปัญหา Error ตอนเปิดหน้าเว็บครั้งแรก)
+    if (isset($_GET['id']) && !empty($_GET['id'])) {
+        $edit_id = $_GET['id'];
+        $stmt = $conn->prepare("SELECT * FROM user WHERE id = :id");
+        $stmt->execute(['id' => $edit_id]);
+        $edit_arr = $stmt->fetch(); // แยกชื่อตัวแปรไม่ให้ชนกับตารางด้านล่าง
+
+        if ($edit_arr) {
+    ?>
+    <div class="box-container">
+        <h3>แก้ไขข้อมูลสมาชิก (ID: <?php echo $edit_arr['id']; ?>)</h3>
+        <hr>
+        <!-- ส่งค่าไปอัปเดตที่ไฟล์ update.php ตามชื่อไฟล์ในโค้ดของคุณ -->
+        <form action="update.php?id=<?php echo $edit_arr['id'];?>" method="POST" name="edit_user">
+            
+            <div class="mb-3 row">
+                <label class="col-sm-2 col-form-label">ID</label>
+                <div class="col-sm-8">
+                    <input type="text" class="form-control" name="id" value="<?php echo $edit_arr['id'];?>" readonly>
+                </div>
+            </div>
+
+            <div class="mb-3 row">
+                <label class="col-sm-2 col-form-label">User</label>
+                <div class="col-sm-8">
+                    <input type="text" class="form-control" name="user" value="<?php echo $edit_arr['user'];?>">
+                </div>
+            </div>
+
+            <div class="mb-3 row">
+                <label class="col-sm-2 col-form-label">รหัสผ่าน</label>
+                <div class="col-sm-8">
+                    <input type="text" class="form-control" name="password" value="<?php echo $edit_arr['password'];?>">
+                </div>
+            </div>
+
+            <div class="mb-3 row">
+                <label class="col-sm-2 col-form-label">ชื่อ-สกุล</label>
+                <div class="col-sm-8">
+                    <input type="text" class="form-control" name="name" value="<?php echo $edit_arr['name'];?>">
+                </div>
+            </div>
+
+            <div class="mb-3 row">
+                <label class="col-sm-2 col-form-label">เบอร์โทร</label>
+                <div class="col-sm-8">
+                    <input type="text" class="form-control" name="phone" value="<?php echo $edit_arr['phone'];?>">
+                </div>
+            </div>
+
+            <div class="mb-3 row">
+                <label class="col-sm-2 col-form-label">Point</label>
+                <div class="col-sm-8">
+                    <input type="text" class="form-control" name="point" value="<?php echo $edit_arr['point'];?>">
+                </div>
+            </div>
+
+            <div class="mb-3 row">
+                <div class="col-sm-8 offset-sm-2">
+                    <input type="submit" name="submit" class="btn-solid theme-primary" value="บันทึกการแก้ไข">
+                    <input type="reset" name="reset" class="btn-solid theme-warning" value="ล้าง">
+                    <a href="admin.php" class="btn-solid theme-danger">ยกเลิก</a>
+                </div>
+            </div>
+        </form>
+    </div>
+    <?php 
+        }
+    } 
+    ?>
+
+    <div class="box-container">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>id</th>
+                    <th>User</th>
+                    <th>รหัส</th>
+                    <th>ชื่อ-สกุล</th>
+                    <th>เบอร์โทร</th>
+                    <th>Point</th>
+                    <th>Date</th>
+                    <th>Manage</th>
+                </tr>
+            </thead>
+            <tbody>
+            <?php
+            $sql = "SELECT * FROM user";
+            $res = $conn->query($sql);
+            while ($arr = $res->fetch()) {
+            ?>
+                <tr>
+                    <td><?php echo $arr['id'];?></td>
+                    <td><?php echo $arr['user'];?></td>
+                    <td><?php echo $arr['password'];?></td>
+                    <td><?php echo $arr['name'];?></td>
+                    <td><?php echo $arr['phone'];?></td>
+                    <td><?php echo $arr['point'];?></td>
+                    <td><?php echo $arr['date'];?></td>
+                    <td>
+                        <a href="delete.php?id=<?php echo $arr['id'];?>"
+                        class="btn btn-solid theme-danger btn-sm"
+                        onclick="return confirm('คุณแน่ใจว่าต้องการลบข้อมูลหรือไม่?');">Delete</a>
+                        
+                        <!-- เปลี่ยนลิงก์ให้ชี้กลับมาที่หน้า admin.php -->
+                        <a href="admin.php?id=<?php echo $arr['id'];?>"
+                        class="btn btn-solid theme-warning btn-sm">Edit</a>
+                    </td>
+                </tr>
+            <?php
+            }
+            ?>
+            </tbody>
+        </table>
+    </div>
+
+</div>
+</body>
+</html>
