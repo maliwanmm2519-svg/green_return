@@ -9,13 +9,32 @@ session_start();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>จัดการแต้มสมาชิก - Green Return</title>
     <link href="bootstrap-6.0.0-alpha.1-dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+     body{
+        background-image: url('image/pexels-vi-t-anh-nguy-n-2150409023-40025137.jpg');
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        min-height: 100vh;
+     } 
+       
+    
+
+</style>   
 </head>
 <body class="bg-dark text-white">
-    <div class="container mt-5">
-        <h2 class="text-center mb-4">💚 ระบบจัดการแต้มสมาชิก (เพิ่ม / หักแต้ม)</h2>
-        <div class="d-flex justify-content-between mb-3">
-            <a href="admin.php" class="btn btn-outline-light">← กลับหน้าผู้ดูแลระบบ</a>
-        </div>
+    <br>
+    <div class="container text-center mt-5">
+       <div class="card bg-secondary text-white p-4 shadow d-inline-block">
+           <h2 class="text-center mb-4">💚 ระบบจัดการแต้มสมาชิก (เพิ่ม / หักแต้ม)</h2>
+       </div>
+    </div>
+           <div class="d-flex justify-content-between mb-3">
+            <a href="index_admin.php" class="btn-outline theme-warning">← กลับหน้าผู้ดูแลระบบ</a>
+           </div>
+     
+     
         <div class="card bg-secondary text-white p-4 shadow">
             <div class="table-responsive">
                 <table class="table table-dark table-striped align-middle">
@@ -44,8 +63,8 @@ session_start();
                                 <form action="save_point.php" method="POST" class="d-flex gap-2">
                                     <input type="hidden" name="id" value="<?php echo $row['id']; ?>">
                                     <input type="number" name="amount" class="form-control form-control-sm" min="1" placeholder="จำนวนแต้ม" required>
-                                    <button type="submit" name="action" value="add" class="btn btn-success btn-sm text-nowrap">➕ เพิ่ม</button>
-                                    <button type="submit" name="action" value="deduct" class="btn btn-danger btn-sm text-nowrap">➖ หัก</button>
+                                    <button type="submit" name="action" value="add" class="btn-outline theme-primary sm text-nowrap">➕ เพิ่ม</button>
+                                    <button type="submit" name="action" value="deduct" class="btn-outline theme-danger text-nowrap">➖ หัก</button>
                                 </form>
                             </td>
                         </tr>
