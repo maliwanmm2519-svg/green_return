@@ -5,9 +5,9 @@ $user = $_POST['user'];
 $password = $_POST['password'];
 $name = $_POST['name'];
 $phone = $_POST['phone'];
-$point = $_POST['point']; // หรือกำหนดค่าเริ่มต้น เช่น 0
+$point = $_POST['point'];
 
-// ใช้ INSERT INTO สำหรับเพิ่มบัญชีผู้ใช้ใหม่
+
 $sql = "INSERT INTO user (user, password, name, phone, point, date) 
         VALUES ('$user', '$password', '$name', '$phone', '$point', NOW())";
 
