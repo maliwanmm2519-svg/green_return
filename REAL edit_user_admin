@@ -1,0 +1,87 @@
+<?php
+session_start();
+if (!isset($_SESSION['admin_user']) || $_SESSION['admin_user'] !== 'nongvear12') {
+    header("Location: login_admin.php");
+    exit();
+}
+include("config.php");
+?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>เพิ่มสมาชิกใหม่ (Admin) - TEST GREEN</title>
+    <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-image: url('image/pexels-ran-hua-651934360-31711372.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            min-height: 100vh;
+            color: #ffffff;
+        }
+        
+    </style>
+</head>
+<body>
+    <br><br><br>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card shadow p-4" style="background-color: rgba(14, 14, 14, 0.85); border: 1px solid rgba(255, 255, 255, 0.15);">
+                    <br>
+                    <center><h1 style="color: #ffffff; font-size: 60px;">เพิ่มสมาชิกใหม่</h1></center>
+                    <br>
+                    
+                    <form action="save.php" method="POST" name="add_user_admin">
+                        <div class="mb-3 row">
+                            <label for="user" class="col-sm-3 col-form-label text-white">User</label>
+                            <div class="col-sm-8">
+                                <input type="text" class="form-control" name="user" placeholder="ตั้งชื่อผู้ใช้งาน" required>
+                            </div>
+                        </div>
+                        <br>
+
+                        <div class="mb-3 row">
+                            <label for="password" class="col-sm-3 col-form-label text-white">รหัสผ่าน</label>
+                            <div class="col-sm-8">
+                                <input type="password" class="form-control" name="password" placeholder="ตั้งรหัสผ่าน" required>
+                            </div>
+                        </div>
+                        <br>
+
+                        <div class="mb-3 row">
+                            <label for="name" class="col-sm-3 col-form-label text-white">ชื่อ-สกุล</label>
+                            <div class="col-sm-8">
+                                <input type="text" class="form-control" name="name" placeholder="กรอกชื่อ-นามสกุล" required>
+                            </div>
+                        </div>
+                        <br>
+
+                        <div class="mb-3 row">
+                            <label for="phone" class="col-sm-3 col-form-label text-white">เบอร์โทร</label>
+                            <div class="col-sm-8">
+                                <input type="text" class="form-control" name="phone" placeholder="กรอกเบอร์โทรศัพท์" required>
+                            </div>
+                        </div>
+                        <br><br>
+
+                        <div class="mb-3 row">
+                            <label class="col-sm-3 col-form-label"></label>
+                            <div class="col-sm-8">
+                                <input type="submit" name="submit" class="btn btn-solid theme-success" value="บันทึกข้อมูล">
+                                <input type="reset" name="reset" class="btn btn-solid theme-warning" value="ล้าง">
+                                <a href="index.php" class="btn btn-solid theme-danger">ยกเลิก / กลับหน้าหลัก</a>
+                            </div>
+                        </div>
+                    </form>
+                    <br>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
