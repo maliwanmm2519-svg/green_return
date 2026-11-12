@@ -1,13 +1,15 @@
-<?php include("config.php");
-$sql = "INSERT INTO user (user, password, name, phone, point, date) 
-        value ('$user', '$password', '$name', '$phone', '$point', NOW())";
+<?php 
+include("config.php");
 
-user='$user',
-password='$password',
-name='$name',
-phone='$phone',
-point='$point',
-date=NOW()
+$user = $_POST['user'];
+$password = $_POST['password'];
+$name = $_POST['name'];
+$phone = $_POST['phone'];
+$point = $_POST['point']; // หรือกำหนดค่าเริ่มต้น เช่น 0
+
+// ใช้ INSERT INTO สำหรับเพิ่มบัญชีผู้ใช้ใหม่
+$sql = "INSERT INTO user (user, password, name, phone, point, date) 
+        VALUES ('$user', '$password', '$name', '$phone', '$point', NOW())";
 
 $conn->exec($sql);
 
