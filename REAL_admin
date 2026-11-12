@@ -1,7 +1,7 @@
 <?php
 session_start();
-if (!isset($_SESSION['admin_user']) || $_SESSION['admin_user'] !== 'nongvear') {
-    header("Location: login_admin.php"); // ถ้ายังไม่ล็อกอิน ดีดกลับไปหน้า login_admin.php
+if (!isset($_SESSION['admin_user']) || $_SESSION['admin_user'] !== 'nongvear12') {
+    header("Location: index_admin.php"); // ถ้ายังไม่ล็อกอิน ดีดกลับไปหน้า login_admin.php
     exit();
 }
 include("config.php"); 
@@ -14,11 +14,11 @@ include("config.php");
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>แก้ไขข้อมูล - Admin</title>
-    <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="bootstrap-6.0.0-alpha.1-dist/css/bootstrap.min.css" rel="stylesheet">
 
     <style>
         body{
-            background-image: url('img/unnamed.jpg');
+            background-image: url('image/pexels-peterdanthy-33034448.jpg');
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
@@ -26,7 +26,7 @@ include("config.php");
             min-height: 100vh;
         }
         .box-container {
-            background-color: #000000;
+            background-color: #393b3b5e;
             padding: 25px;
             border-radius: 10px;
             margin-bottom: 30px;
@@ -145,7 +145,7 @@ include("config.php");
                         onclick="return confirm('คุณแน่ใจว่าต้องการลบข้อมูลหรือไม่?');">Delete</a>
                         
                         <!-- เปลี่ยนลิงก์ให้ชี้กลับมาที่หน้า admin.php -->
-                        <a href="admin.php?id=<?php echo $arr['id'];?>"
+                        <a href="edit_user_admin.php?id=<?php echo $arr['id'];?>"
                         class="btn btn-solid theme-warning btn-sm">Edit</a>
                     </td>
                 </tr>
