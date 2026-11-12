@@ -1,0 +1,59 @@
+<?php 
+include("config.php");
+session_start();
+?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>จัดการแต้มสมาชิก - Green Return</title>
+    <link href="bootstrap-6.0.0-alpha.1-dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-dark text-white">
+    <div class="container mt-5">
+        <h2 class="text-center mb-4">💚 ระบบจัดการแต้มสมาชิก (เพิ่ม / หักแต้ม)</h2>
+        <div class="d-flex justify-content-between mb-3">
+            <a href="admin.php" class="btn btn-outline-light">← กลับหน้าผู้ดูแลระบบ</a>
+        </div>
+        <div class="card bg-secondary text-white p-4 shadow">
+            <div class="table-responsive">
+                <table class="table table-dark table-striped align-middle">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Username</th>
+                            <th>ชื่อ-สกุล</th>
+                            <th>แต้มคงเหลือ</th>
+                            <th style="width: 38%;">จัดการแต้ม (กรอกจำนวนแล้วกดปุ่ม)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php
+                        $sql = "SELECT * FROM user";
+                        $stmt = $conn->query($sql);
+                        while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
+                        ?>
+                        <tr>
+                            <td><?php echo $row['id']; ?></td>
+                            <td><?php echo htmlspecialchars($row['user']); ?></td>
+                            <td><?php echo htmlspecialchars($row['name'] ?? '-'); ?></td>
+                            <td><span class="badge bg-warning text-dark fs-6"><?php echo $row['point']; ?> คะแนน</span></td>
+                            <td>
+                                <!-- ฟอร์มจัดการแต้มต่อ 1 แถวสมาชิก -->
+                                <form action="save_point.php" method="POST" class="d-flex gap-2">
+                                    <input type="hidden" name="id" value="<?php echo $row['id']; ?>">
+                                    <input type="number" name="amount" class="form-control form-control-sm" min="1" placeholder="จำนวนแต้ม" required>
+                                    <button type="submit" name="action" value="add" class="btn btn-success btn-sm text-nowrap">➕ เพิ่ม</button>
+                                    <button type="submit" name="action" value="deduct" class="btn btn-danger btn-sm text-nowrap">➖ หัก</button>
+                                </form>
+                            </td>
+                        </tr>
+                        <?php } ?>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
