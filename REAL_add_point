@@ -6,7 +6,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>เพิ่มคะแนน</title>
-    <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="bootstrap-6.0.0-alpha.1-dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
     <br>
@@ -16,7 +16,7 @@
         <div class="card shadow p-4">
             
             <h2 class="text-center mb-3">GREEN 🌳 RETURN</h2>
-            <p class="text-center text-muted mb-4">เพิ่มคะแนนสะสมสำหรับพนักงาน</p>
+            <p class="text-center text-muted mb-4">เพิ่มคะแนนสะสมสำหรัฟบพนักงาน</p>
 
             <form action="save_point.php" method="POST">
                 
