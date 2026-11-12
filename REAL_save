@@ -3,16 +3,29 @@ include("config.php");
 
 $user = $_POST['user'];
 $password = $_POST['password'];
+$confirm_password = $_POST['confirm_password']; // รับค่ายืนยันรหัสผ่าน
 $name = $_POST['name'];
 $phone = $_POST['phone'];
-$point = $_POST['point'];
+$point = 0; // ค่าเริ่มต้นของสมาชิกใหม่คือ 0 แต้ม
 
+// ตรวจสอบว่ารหัสผ่านทั้ง 2 ช่องตรงกันหรือไม่
+if($password !== $confirm_password) {
+    echo "<script>
+        alert('รหัสผ่านและยืนยันรหัสผ่านไม่ตรงกัน! กรุณากรอกใหม่อีกครั้ง');
+        window.history.back(); // เด้งกลับไปหน้าเดิมโดยข้อมูลที่กรอกไว้ไม่หาย
+    </script>";
+    exit();
+}
 
+// ถ้ารหัสตรงกัน ให้บันทึกข้อมูลลงฐานข้อมูลตามปกติ
 $sql = "INSERT INTO user (user, password, name, phone, point, date) 
         VALUES ('$user', '$password', '$name', '$phone', '$point', NOW())";
 
 $conn->exec($sql);
 
-header("Location: login.php");
+echo "<script>
+    alert('สมัครสมาชิกสำเร็จ!');
+    window.location='login.php';
+</script>";
 exit();
 ?>
