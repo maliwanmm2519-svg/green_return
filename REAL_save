@@ -1,7 +1,7 @@
 <?php include("config.php");
 $sql = "INSERT INTO user (user, password, name, phone, point, date) 
         value ('$user', '$password', '$name', '$phone', '$point', NOW())";
-$sql=$conn->exec("UPDATE user SET 
+
 user='$user',
 password='$password',
 name='$name',
@@ -9,7 +9,8 @@ phone='$phone',
 point='$point',
 date=NOW()
 
-where id=$id");
-echo $sql;
-header("Location:admin.php")
+$conn->exec($sql);
+
+header("Location: login.php");
+exit();
 ?>
