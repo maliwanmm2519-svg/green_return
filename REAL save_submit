@@ -1,0 +1,30 @@
+<?php 
+include("config.php");
+
+$user = $_POST['user'] ?? '';
+$password = $_POST['password'] ?? '';
+$confirm_password = $_POST['confirm_password'] ?? '';
+$name = $_POST['name'] ?? '';
+$phone = $_POST['phone'] ?? '';
+
+// ตรวจสอบว่ารหัสผ่านทั้ง 2 ช่องตรงกันหรือไม่
+if($password !== $confirm_password) {
+    echo "<script>
+        alert('รหัสผ่านและยืนยันรหัสผ่านไม่ตรงกัน! กรุณากรอกใหม่อีกครั้ง');
+        window.history.back();
+    </script>";
+    exit();
+}
+
+// ถ้าตรงกัน นำข้อมูลบันทึกลงตาราง submit_user ตามปกติ
+$sql = "INSERT INTO submit_user (user, password, name, phone, date) 
+        VALUES (?, ?, ?, ?, NOW())";
+$stmt = $conn->prepare($sql);
+$stmt->execute([$user, $password, $name, $phone]);
+
+echo "<script>
+    alert('ส่งคำขอสมัครสมาชิกสำเร็จ! กรุณารอผู้ดูแลระบบอนุมัติบัญชี');
+    window.location='login.php';
+</script>";
+exit();
+?>
