@@ -1,1 +1,49 @@
+<?php
+include("config.php");
+session_start();
 
+// ตรวจสอบสิทธิ์แอดมิน
+if (!isset($_SESSION['admin_user']) || $_SESSION['admin_user'] !== 'nongvear12') {
+    header("Location: login_admin.php");
+    exit();
+}
+
+$id = $_POST['id'] ?? '';
+$action = $_POST['action'] ?? '';
+
+if ($action == 'approve') {
+    // 1. ดึงข้อมูลจากตาราง submit_user ตาม ID ที่เลือก
+    $stmt = $conn->prepare("SELECT * FROM submit_user WHERE id = ?");
+    $stmt->execute([$id]);
+    $data = $stmt->fetch(PDO::FETCH_ASSOC);
+
+    if ($data) {
+        // 2. ย้ายข้อมูลไปใส่ตารางหลัก (user) พร้อมเซ็ตแต้มเริ่มต้นเป็น 0 และบันทึกเวลาปัจจุบัน
+        $sql_insert = "INSERT INTO user (user, password, name, phone, point, date) 
+                       VALUES (?, ?, ?, ?, 0, NOW())";
+        $stmt_insert = $conn->prepare($sql_insert);
+        $stmt_insert->execute([$data['user'], $data['password'], $data['name'], $data['phone']]);
+
+        // 3. ลบข้อมูลออกจากตารางรออนุมัติ (submit_user)
+        $stmt_delete = $conn->prepare("DELETE FROM submit_user WHERE id = ?");
+        $stmt_delete->execute([$id]);
+
+        echo "<script>
+            alert('อนุมัติบัญชีผู้ใช้สำเร็จ! เพิ่มข้อมูลเข้าสู่ระบบเรียบร้อยแล้ว');
+            window.location='request_list.php';
+        </script>";
+        exit();
+    }
+} 
+else if ($action == 'reject') {
+    // ถ้ากดปฏิเสธ ให้ลบข้อมูลออกจากตาราง submit_user ทิ้งทันที
+    $stmt_delete = $conn->prepare("DELETE FROM submit_user WHERE id = ?");
+    $stmt_delete->execute([$id]);
+
+    echo "<script>
+        alert('ปฏิเสธคำขอและลบข้อมูลเรียบร้อยแล้ว');
+        window.location='request_list.php';
+    </script>";
+    exit();
+}
+?>
