@@ -31,35 +31,24 @@
             transform: translateY(-5px);
             border-color: #198754;
         }
-        .step-number {
-            width: 45px;
-            height: 45px;
-            background-color: #198754;
-            color: #ffffff !important;
-            font-weight: bold;
-            font-size: 20px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 15px auto;
-        }
+        
     </style>
 </head>
 <body>
-
+<!-- 1.                  -->
+ 
     <nav class="navbar navbar-dark bg-black border-bottom border-success border-opacity-50 py-3 sticky-top">
         <div class="container">
             <a href="home_page.php" class="text-decoration-none brand-logo">
                 <span class="fs-4 fw-bold" style="color: #ffffff !important;">GREEN</span>
-                <span class="fs-4 fw-bold text-success"> RETURN</span>
+                <span class="fs-4 fw-bold text-"> RETURN</span>
             </a>
 
             <div class="d-flex gap-2">
                 <a href="login.php" class="btn btn-success rounded-pill px-4 fw-bold shadow-sm">
                     👤 เข้าสู่ระบบสมาชิก
                 </a>
-                <a href="login_admin.php" class="btn btn-outline-secondary rounded-pill px-3" style="color: #e5e7eb !important;">
+                <a href="login_admin.php" class="btn btn-outline theme-secondary rounded-pill px-3" style="color: #e5e7eb !important;">
                     ⚙️ แอดมิน
                 </a>
             </div>
@@ -83,7 +72,7 @@
                 <a href="add_user.php" class="btn btn-success btn-lg rounded-pill px-5 fw-bold shadow">
                     📝 สมัครสมาชิกใหม่
                 </a>
-                <a href="#promotions" class="btn btn-outline-light btn-lg rounded-pill px-4" style="color: #ffffff !important;">
+                <a href="#promotions" class="btn btn-outline-light theme-socendary btn-lg rounded-pill px-4" style="color: #ffffff !important;">
                     🎁 ดูโปรโมชั่น
                 </a>
             </div>
@@ -101,7 +90,11 @@
             <!-- ขั้นตอนที่ 1 -->
             <div class="col-md-4">
                 <div class="content-card p-4 rounded-4 text-center h-100">
-                    <div class="step-number">1</div>
+                    <div class="bg-success fw-bold fs-5 rounded-circle d-inline-flex align-items-center justify-content-center mb-3" 
+                    style="width: 45px; height: 45px; color: #ffffff !important;"> 1 
+                </div>
+
+
                     <h5 class="fw-bold mb-2" style="color: #ffffff !important;">นำแก้วเดิมมาคืนที่ร้าน</h5>
                     <p class="mb-0" style="color: #d1d5db !important;">
                         เก็บแก้วเครื่องดื่มที่ซื้อจากทางร้านในครั้งก่อน (ล้างทำความสะอาดเบื้องต้น) แล้วนำกลับมาคืนที่จุดรับคืนหน้าร้าน
@@ -112,7 +105,9 @@
             <!-- ขั้นตอนที่ 2 -->
             <div class="col-md-4">
                 <div class="content-card p-4 rounded-4 text-center h-100">
-                    <div class="step-number">2</div>
+                    <div class="bg-success fw-bold fs-5 rounded-circle d-inline-flex align-items-center justify-content-center mb-3" 
+                    style="width: 45px; height: 45px; color: #ffffff !important;"> 2
+                    </div>
                     <h5 class="fw-bold mb-2" style="color: #ffffff !important;">แจ้งเบอร์โทรศัพท์กับพนักงาน</h5>
                     <p class="mb-0" style="color: #d1d5db !important;">
                         แจ้งเบอร์โทรศัพท์ที่ลงทะเบียนสมาชิกไว้ให้พนักงานตรวจสอบข้อมูลในระบบเพื่อยืนยันตัวตน
@@ -123,7 +118,9 @@
             <!-- ขั้นตอนที่ 3 -->
             <div class="col-md-4">
                 <div class="content-card p-4 rounded-4 text-center h-100">
-                    <div class="step-number">3</div>
+                    <div class="bg-success fw-bold fs-5 rounded-circle d-inline-flex align-items-center justify-content-center mb-3" 
+                    style="width: 45px; height: 45px; color: #ffffff !important;"> 3
+                    </div>
                     <h5 class="fw-bold mb-2" style="color: #ffffff !important;">รับแต้มเข้าบัญชีทันที</h5>
                     <p class="mb-0" style="color: #d1d5db !important;">
                         พนักงานกดเพิ่มแต้มเข้าบัญชีของคุณทันที สามารถล็อกอินเช็กยอดแต้มและนำไปแลกโปรโมชั่นในครั้งถัดไปได้เลย
@@ -203,7 +200,7 @@
 
         <div class="row g-3">
             <!-- ข่าวที่ 1 -->
-            <div class="col-12">
+            <div class="col-8">
                 <div class="content-card p-4 rounded-4">
                     <span class="badge bg-warning text-dark mb-2">กิจกรรมพิเศษ • 12 พ.ย. 2026</span>
                     <h5 class="fw-bold mb-1" style="color: #ffffff !important;">Double Point Day! คืนแก้ววันพุธ รับแต้มเพิ่ม 2 เท่า</h5>
@@ -214,7 +211,7 @@
             </div>
 
             <!-- ข่าวที่ 2 -->
-            <div class="col-12">
+            <div class="col-8">
                 <div class="content-card p-4 rounded-4">
                     <span class="badge bg-secondary mb-2">ประกาศระบบ • 1 พ.ย. 2026</span>
                     <h5 class="fw-bold mb-1" style="color: #ffffff !important;">เปิดใช้งานระบบสมาชิก GREEN RETURN ออนไลน์อย่างเป็นทางการ</h5>
