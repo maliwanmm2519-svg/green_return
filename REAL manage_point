@@ -1,73 +1,102 @@
 <?php 
 include("config.php");
-session_start();
+$sql = "SELECT * FROM user";
+$result = $conn->query($sql);
 ?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="th">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>จัดการแต้มสมาชิก - Green Return</title>
     <link href="bootstrap-6.0.0-alpha.1-dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
-     body{
-        background-image: url('image/pexels-vi-t-anh-nguy-n-2150409023-40025137.jpg');
-        background-size: cover;
-        background-position: center;
-        background-repeat: no-repeat;
-        background-attachment: fixed;
-        min-height: 100vh;
-     } 
-     
-       
-    
-
-</style>   
+        body {
+            background-image: url('https://images.pexels.com/photos/359994/pexels-photo-359994.jpeg?cs=srgb&dl=pexels-chevanon-359994.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            min-height: 100vh;
+            color: #ffffff;
+        }
+        /* สไตล์กล่องและตาราง: สีเทาดำเข้ม โปร่งแสงเล็กน้อย และเบลอฉากหลังนิดๆ */
+        .semi-dark-box {
+            background-color: rgba(22, 22, 22, 0.82) !important;
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            backdrop-filter: blur(6px);
+        }
+        .table-semi-dark {
+            --bs-table-bg: rgba(22, 22, 22, 0.85) !important;
+            --bs-table-color: #ffffff !important;
+            --bs-table-border-color: rgba(255, 255, 255, 0.1) !important;
+            --bs-table-hover-bg: rgba(40, 40, 40, 0.9) !important;
+            --bs-table-hover-color: #ffffff !important;
+        }
+        .table-semi-dark input.form-control {
+            background-color: rgba(12, 12, 12, 0.9) !important;
+            color: #ffffff !important;
+            border: 1px solid rgba(255, 255, 255, 0.2) !important;
+        }
+        .table-semi-dark input.form-control::placeholder {
+            color: #9ca3af !important;
+        }
+    </style>
 </head>
-<body class="bg-dark text-white">
-    <br>
-    <div class="container text-center mt-5">
-       <div class="card bg-secondary text-white p-4 shadow d-inline-block">
-           <h2 class="text-center mb-4">💚 ระบบจัดการแต้มสมาชิก (เพิ่ม / หักแต้ม)</h2>
-       </div>
-    </div>
-           <div class="d-flex justify-content-between mb-3">
-            <a href="index_admin.php" class="btn-outline theme-warning">← กลับหน้าผู้ดูแลระบบ</a>
-           </div>
-     
-     
-        <div class="card bg-secondary text-white p-4 shadow">
-            <div class="table-responsive">
-                <table class="table table-dark table-striped align-middle">
+<body>
+   <br>
+    <div class="container mt-4 mb-5">
+        <!-- ปุ่มกลับหน้าเดิม -->
+        <div class="mb-3">
+            <a href="index_admin.php" class="btn-solid theme-warning btn-sm rounded-pill px-3 shadow-sm">
+                ← กลับหน้าผู้ดูแลระบบ
+            </a>
+        </div>
+
+        <!-- หัวข้อระบบ (การ์ดโปร่งแสงสีเทาดำ หวดยาวพอดีข้อความ ตรงกลาง) -->
+        <div class="text-center mb-4">
+            <div class="card semi-dark-box p-3 shadow-lg d-inline-block rounded-4">
+                <h2 class="mb-0 fs-4" style="color: #ffffff !important;">⚙️ ระบบจัดการแต้มสมาชิก (เพิ่ม / หักแต้ม)</h2>
+            </div>
+        </div>
+        <br>
+        <!-- ตารางข้อมูลรายชื่อ -->
+        <div class="card semi-dark-box shadow-lg rounded-4 overflow-hidden">
+            <div class="table-responsive m-0">
+                <table class="table table-semi-dark table-hover align-middle mb-0">
                     <thead>
                         <tr>
-                            <th>ID</th>
-                            <th>Username</th>
-                            <th>ชื่อ-สกุล</th>
-                            <th>แต้มคงเหลือ</th>
-                            <th style="width: 38%;">จัดการแต้ม (กรอกจำนวนแล้วกดปุ่ม)</th>
+                            <th class="py-3 px-4">ID</th>
+                            <th class="py-3">Username</th>
+                            <th class="py-3">ชื่อ-สกุล</th>
+                            <th class="py-3">แต้มคงเหลือ</th>
+                            <th class="py-3" style="width: 310px;">จัดการแต้ม (กรอกจำนวนแล้วกดปุ่ม)</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <?php
-                        $sql = "SELECT * FROM user";
-                        $stmt = $conn->query($sql);
-                        while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
-                        ?>
+                        <?php if ($result && $result->rowCount() > 0) { 
+                            while($row = $result->fetch(PDO::FETCH_ASSOC)) { ?>
                         <tr>
-                            <td><?php echo $row['id']; ?></td>
-                            <td><?php echo htmlspecialchars($row['user']); ?></td>
-                            <td><?php echo htmlspecialchars($row['name'] ?? '-'); ?></td>
-                            <td><span class="badge bg-warning text-dark fs-6"><?php echo $row['point']; ?> คะแนน</span></td>
+                            <td class="px-4"><?php echo $row['id']; ?></td>
+                            <td><?php echo htmlspecialchars($row['user'] ?? ''); ?></td>
+                            <td><?php echo htmlspecialchars($row['name'] ?? ''); ?></td>
                             <td>
-                                <!-- ฟอร์มจัดการแต้มต่อ 1 แถวสมาชิก -->
-                                <form action="save_point.php" method="POST" class="d-flex gap-2">
-                                    <input type="hidden" name="id" value="<?php echo $row['id']; ?>">
-                                    <input type="number" name="amount" class="form-control form-control-sm" min="1" placeholder="จำนวนแต้ม" required>
-                                    <button type="submit" name="action" value="add" class="btn-outline theme-primary sm text-nowrap">➕ เพิ่ม</button>
-                                    <button type="submit" name="action" value="deduct" class="btn-outline theme-danger text-nowrap">➖ หัก</button>
+                                <span class="badge bg-warning text-dark px-3 py-2">
+                                    <?php echo isset($row['point']) ? $row['point'] : 0; ?> คะแนน
+                                </span>
+                            </td>
+                            <td>
+                                <form action="save_point.php?id=<?php echo $row['id']; ?>" method="POST" class="d-flex gap-2">
+                                    <input type="number" name="point" class="form-control form-control-sm" placeholder="จำนวนแต้ม" required min="1">
+                                    <button type="submit" name="action" value="add" class="btn-outline theme-primary sm px-3 fw-bold text-nowrap">+ เพิ่ม</button>
+                                    <button type="submit" name="action" value="deduct" class="btn-outline theme-danger sm px-3 fw-bold text-nowrap">- หัก</button>
                                 </form>
                             </td>
+                        </tr>
+                        <?php } 
+                        } else { ?>
+                        <tr>
+                            <td colspan="5" class="text-center py-4 text-secondary">ไม่พบข้อมูลสมาชิกในระบบ</td>
                         </tr>
                         <?php } ?>
                     </tbody>
@@ -75,5 +104,6 @@ session_start();
             </div>
         </div>
     </div>
+
 </body>
 </html>
