@@ -19,10 +19,10 @@ if(isset($_SESSION['id'])){
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ข้อมูลสมาชิกของคุณ</title>
-    <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="bootstrap-6.0.0-alpha.1-dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
         body {
-            background-image: url('img/unnamed.jpg');
+            background-image: url('image/pexels-peterdanthy-33034448.jpg');
             background-size: cover;
             background-position: center;
             min-height: 100vh;
