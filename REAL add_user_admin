@@ -1,89 +1,87 @@
-
-<?php include("config.php");?>
+<?php
+session_start();
+if (!isset($_SESSION['admin_user']) || $_SESSION['admin_user'] !== 'nongvear12') {
+    header("Location: login_admin.php");
+    exit();
+}
+include("config.php");
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>แก้ไขข้อมูล</title>
-    <link href="bootstrap-6.0.0-alpha.1-dist/css/bootstrap.min.css" rel="stylesheet">
-
+    <title>เพิ่มสมาชิกใหม่ (Admin) - TEST GREEN</title>
+    <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <style>
-        body{
-            background-image: url('https://images.pexels.com/photos/359994/pexels-photo-359994.jpeg?cs=srgb&dl=pexels-chevanon-359994.jpg&fm=jpg');
+        body {
+            background-image: url('image/pexels-ran-hua-651934360-31711372.jpg');
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
             background-attachment: fixed;
             min-height: 100vh;
+            color: #ffffff;
         }
+        
     </style>
 </head>
 <body>
     <br><br><br>
     <div class="container">
-        <br>
-        <center><h1 style="color: #ffffff; font-size: 50px;">แก้ไขข้อมูล</h1></center>
-        <br>
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card shadow p-4" style="background-color: rgba(14, 14, 14, 0.85); border: 1px solid rgba(255, 255, 255, 0.15);">
+                    <br>
+                    <center><h1 style="color: #ffffff; font-size: 60px;">เพิ่มสมาชิกใหม่</h1></center>
+                    <br>
+                    
+                    <form action="save.php" method="POST" name="add_user_admin">
+                        <div class="mb-3 row">
+                            <label for="user" class="col-sm-3 col-form-label text-white">User</label>
+                            <div class="col-sm-8">
+                                <input type="text" class="form-control" name="user" placeholder="ตั้งชื่อผู้ใช้งาน" required>
+                            </div>
+                        </div>
+                        <br>
 
-        <?php
-        $sql="select*from user where id='".$_GET['id']."'";
-        $res=$conn->query($sql);
-        $arr=$res->fetch();
-        ?>
-    
-        <form action="update_user.php?id=<?php echo $arr['id'];?>" method="POST" name="add_user">
-        <br>
-    
-            <div class="mb-9 row">
-            <label for="user" class="sm:col-2  col-form-label">User</label>
-                <div class="sm:col-8">
-                <input type="text" class="form-control" name="user" value="<?php echo $arr['user'];?>">
+                        <div class="mb-3 row">
+                            <label for="password" class="col-sm-3 col-form-label text-white">รหัสผ่าน</label>
+                            <div class="col-sm-8">
+                                <input type="password" class="form-control" name="password" placeholder="ตั้งรหัสผ่าน" required>
+                            </div>
+                        </div>
+                        <br>
+
+                        <div class="mb-3 row">
+                            <label for="name" class="col-sm-3 col-form-label text-white">ชื่อ-สกุล</label>
+                            <div class="col-sm-8">
+                                <input type="text" class="form-control" name="name" placeholder="กรอกชื่อ-นามสกุล" required>
+                            </div>
+                        </div>
+                        <br>
+
+                        <div class="mb-3 row">
+                            <label for="phone" class="col-sm-3 col-form-label text-white">เบอร์โทร</label>
+                            <div class="col-sm-8">
+                                <input type="text" class="form-control" name="phone" placeholder="กรอกเบอร์โทรศัพท์" required>
+                            </div>
+                        </div>
+                        <br><br>
+
+                        <div class="mb-3 row">
+                            <label class="col-sm-3 col-form-label"></label>
+                            <div class="col-sm-8">
+                                <input type="submit" name="submit" class="btn btn-solid theme-success" value="บันทึกข้อมูล">
+                                <input type="reset" name="reset" class="btn btn-solid theme-warning" value="ล้าง">
+                                <a href="index.php" class="btn btn-solid theme-danger">ยกเลิก / กลับหน้าหลัก</a>
+                            </div>
+                        </div>
+                    </form>
+                    <br>
                 </div>
             </div>
-            <br>
-
-            <div class="mb-9 row">
-             <label for="password" class="sm:col-2 col-form-label">รหัส</label>
-                <div class="sm:col-8">
-                <input type="password" class="form-control" name="password" value="<?php echo $arr['password'];?>">
-                </div>
-            </div>
-            <br>
-
-
-            <div class="mb-9 row">
-             <label for="name" class="sm:col-2 col-form-label">ชื่อ-สกุล</label>
-                <div class="sm:col-8">
-                <input type="text" class="form-control" name="name" value="<?php echo $arr['name'];?>">
-                </div>
-            </div>
-            <br>
-
-
-            <div class="mb-9 row">
-            <label for="phone" class="sm:col-2 col-form-label">เบอร์โทร</label>
-                <div class="sm:col-8">
-                <input type="text" class="form-control" name="phone" value="<?php echo $arr['phone'];?>">
-                </div>
-            </div>
-    
-            <br>
-
-            <div class="mb-9 row">
-                <label for="submit" class="sm:col-2 col-form-label"></label>
-                <div class="sm:col-8">
-                <input type="submit" name="submit" class="btn-solid sm theme-primary" value="บันทึก">
-                <input type="reset" name="reset" class="btn-solid sm theme-warning" value="ล้าง">
-                <a href="#" class="btn-solid sm theme-danger">ยกเลิก</a>
-                </div>
-            </div>
-    </form>
-    <br><br>
-
-    
-
-</div>
-
+        </div>
+    </div>
 </body>
 </html>
