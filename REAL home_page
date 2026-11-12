@@ -1,0 +1,235 @@
+<?php include("config.php");?>
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GREEN RETURN - ระบบรีไซเคิลสะสมแต้ม</title>
+    <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+     <style>
+        body {
+            background-image: url('image/pexels-peterdanthy-33034448.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            min-height: 100vh;
+            }
+
+            .solid-box {
+            background-color: #121d15 !important;
+            border: 1px solid #234d31;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.9);
+        }
+        .content-card {
+            background-color: #142118 !important;
+            border: 1px solid #234d31;
+            transition: transform 0.2s ease, border-color 0.2s ease;
+        }
+        .content-card:hover {
+            transform: translateY(-5px);
+            border-color: #198754;
+        }
+        .step-number {
+            width: 45px;
+            height: 45px;
+            background-color: #198754;
+            color: #ffffff !important;
+            font-weight: bold;
+            font-size: 20px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 15px auto;
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar navbar-dark bg-black border-bottom border-success border-opacity-50 py-3 sticky-top">
+        <div class="container">
+            <a href="home_page.php" class="text-decoration-none brand-logo">
+                <span class="fs-4 fw-bold" style="color: #ffffff !important;">GREEN</span>
+                <span class="fs-4 fw-bold text-success"> RETURN</span>
+            </a>
+
+            <div class="d-flex gap-2">
+                <a href="login.php" class="btn btn-success rounded-pill px-4 fw-bold shadow-sm">
+                    👤 เข้าสู่ระบบสมาชิก
+                </a>
+                <a href="login_admin.php" class="btn btn-outline-secondary rounded-pill px-3" style="color: #e5e7eb !important;">
+                    ⚙️ แอดมิน
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 2. ส่วนต้อนรับหลัก (Hero Section) -->
+    <div class="container py-5">
+        <div class="solid-box p-5 text-center rounded-4">
+            <span class="badge bg-success bg-opacity-25 text-success border border-success rounded-pill px-3 py-2 mb-3">
+                🌱 คืนแก้วลดขยะ สะสมแต้มแลกความสดชื่น
+            </span>
+            <h1 class="display-4 fw-bold mb-3" style="color: #ffffff !important;">
+                ยินดีต้อนรับสู่ <span class="text-success">GREEN RETURN</span>
+            </h1>
+            <p class="lead col-md-8 mx-auto mb-4" style="color: #d1d5db !important;">
+                ร่วมเป็นส่วนหนึ่งในการดูแลสิ่งแวดล้อม เพียงนำแก้วเครื่องดื่มใบเดิมกลับมาคืนที่ร้าน 
+                แจ้งเบอร์โทรศัพท์เพื่อรับแต้มสะสม และแลกรับเครื่องดื่มฟรีหรือส่วนลดสุดพิเศษได้ทันที
+            </p>
+            <div class="d-flex justify-content-center gap-3 flex-wrap">
+                <a href="add_user.php" class="btn btn-success btn-lg rounded-pill px-5 fw-bold shadow">
+                    📝 สมัครสมาชิกใหม่
+                </a>
+                <a href="#promotions" class="btn btn-outline-light btn-lg rounded-pill px-4" style="color: #ffffff !important;">
+                    🎁 ดูโปรโมชั่น
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- 3. ส่วนขั้นตอนการรับแต้ม (How it Works) -->
+    <div id="how-to" class="container py-4">
+        <div class="solid-box p-4 rounded-4 mb-4 text-center">
+            <h2 class="fw-bold mb-1" style="color: #ffffff !important;">♻️ วิธีรับแต้มง่ายๆ ใน 3 ขั้นตอน</h2>
+            <p class="mb-0" style="color: #9ca3af !important;">เพียงนำแก้วใบเดิมกลับมาคืน ก็เปลี่ยนเป็นแต้มสะสมได้ทันที</p>
+        </div>
+
+        <div class="row g-4">
+            <!-- ขั้นตอนที่ 1 -->
+            <div class="col-md-4">
+                <div class="content-card p-4 rounded-4 text-center h-100">
+                    <div class="step-number">1</div>
+                    <h5 class="fw-bold mb-2" style="color: #ffffff !important;">นำแก้วเดิมมาคืนที่ร้าน</h5>
+                    <p class="mb-0" style="color: #d1d5db !important;">
+                        เก็บแก้วเครื่องดื่มที่ซื้อจากทางร้านในครั้งก่อน (ล้างทำความสะอาดเบื้องต้น) แล้วนำกลับมาคืนที่จุดรับคืนหน้าร้าน
+                    </p>
+                </div>
+            </div>
+
+            <!-- ขั้นตอนที่ 2 -->
+            <div class="col-md-4">
+                <div class="content-card p-4 rounded-4 text-center h-100">
+                    <div class="step-number">2</div>
+                    <h5 class="fw-bold mb-2" style="color: #ffffff !important;">แจ้งเบอร์โทรศัพท์กับพนักงาน</h5>
+                    <p class="mb-0" style="color: #d1d5db !important;">
+                        แจ้งเบอร์โทรศัพท์ที่ลงทะเบียนสมาชิกไว้ให้พนักงานตรวจสอบข้อมูลในระบบเพื่อยืนยันตัวตน
+                    </p>
+                </div>
+            </div>
+
+            <!-- ขั้นตอนที่ 3 -->
+            <div class="col-md-4">
+                <div class="content-card p-4 rounded-4 text-center h-100">
+                    <div class="step-number">3</div>
+                    <h5 class="fw-bold mb-2" style="color: #ffffff !important;">รับแต้มเข้าบัญชีทันที</h5>
+                    <p class="mb-0" style="color: #d1d5db !important;">
+                        พนักงานกดเพิ่มแต้มเข้าบัญชีของคุณทันที สามารถล็อกอินเช็กยอดแต้มและนำไปแลกโปรโมชั่นในครั้งถัดไปได้เลย
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 4. ส่วนโปรโมชั่นและของรางวัล (Promotions) -->
+    <div id="promotions" class="container py-5">
+        <div class="solid-box p-4 rounded-4 mb-4">
+            <h2 class="fw-bold mb-1" style="color: #ffffff !important;">🎁 โปรโมชั่น & สิทธิพิเศษแลกแต้ม</h2>
+            <p class="mb-0" style="color: #9ca3af !important;">สะสมแต้มครบตามกำหนด แจ้งพนักงานเพื่อใช้สิทธิ์แลกรับของรางวัล</p>
+        </div>
+
+        <div class="row g-4">
+            <!-- โปรโมชั่นที่ 1 -->
+            <div class="col-md-4">
+                <div class="content-card p-4 rounded-4 h-100 d-flex flex-column">
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <span class="badge bg-success px-3 py-2 rounded-pill">ยอดนิยม</span>
+                        <span class="fw-bold text-warning fs-5">ใช้ 50 แต้ม</span>
+                    </div>
+                    <h5 class="fw-bold mb-2" style="color: #ffffff !important;">ส่วนลดเครื่องดื่ม 15 บาท</h5>
+                    <p class="mb-4" style="color: #d1d5db !important;">
+                        ใช้คะแนนสะสม 50 แต้ม แลกรับส่วนลดทันที 15 บาท สำหรับเครื่องดื่มทุกเมนูภายในร้าน (1 แก้ว / 1 สิทธิ์)
+                    </p>
+                    <div class="mt-auto pt-3 border-top border-secondary border-opacity-25">
+                        <small style="color: #9ca3af !important;">* แสดงหน้าบัญชีสมาชิกให้พนักงานตรวจสอบ</small>
+                    </div>
+                </div>
+            </div>
+
+            <!-- โปรโมชั่นที่ 2 -->
+            <div class="col-md-4">
+                <div class="content-card p-4 rounded-4 h-100 d-flex flex-column">
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <span class="badge bg-primary px-3 py-2 rounded-pill">คุ้มสุดๆ</span>
+                        <span class="fw-bold text-warning fs-5">ใช้ 100 แต้ม</span>
+                    </div>
+                    <h5 class="fw-bold mb-2" style="color: #ffffff !important;">ฟรี! เครื่องดื่มเย็น 1 แก้ว</h5>
+                    <p class="mb-4" style="color: #d1d5db !important;">
+                        แลกรับเครื่องดื่มเมนูเย็นขนาดปกติฟรีทันที 1 แก้ว มูลค่าไม่เกิน 55 บาท (ไม่รวมท็อปปิ้งเพิ่มเติม)
+                    </p>
+                    <div class="mt-auto pt-3 border-top border-secondary border-opacity-25">
+                        <small style="color: #9ca3af !important;">* ใช้สิทธิ์ได้ที่หน้าร้านทุกสาขา</small>
+                    </div>
+                </div>
+            </div>
+
+            <!-- โปรโมชั่นที่ 3 -->
+            <div class="col-md-4">
+                <div class="content-card p-4 rounded-4 h-100 d-flex flex-column">
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <span class="badge bg-info text-dark px-3 py-2 rounded-pill">รักษ์โลก</span>
+                        <span class="fw-bold text-warning fs-5">ใช้ 200 แต้ม</span>
+                    </div>
+                    <h5 class="fw-bold mb-2" style="color: #ffffff !important;">แลกรับกระเป๋าผ้ารักษ์โลก GREEN RETURN</h5>
+                    <p class="mb-4" style="color: #d1d5db !important;">
+                        สะสมครบ 200 แต้ม แลกรับกระเป๋าผ้าแคนวาสลายลิมิเต็ด พกพาสะดวก ลดการใช้ถุงพลาสติก
+                    </p>
+                    <div class="mt-auto pt-3 border-top border-secondary border-opacity-25">
+                        <small style="color: #9ca3af !important;">* สินค้ามีจำนวนจำกัด</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 5. ส่วนข่าวสารและประกาศ (News & Announcements) -->
+    <div id="news" class="container pb-5">
+        <div class="solid-box p-4 rounded-4 mb-4">
+            <h2 class="fw-bold mb-1" style="color: #ffffff !important;">📢 ข่าวสารและกิจกรรม</h2>
+            <p class="mb-0" style="color: #9ca3af !important;">อัปเดตข่าวสาร กิจกรรมคูณแต้ม และประกาศจากทางร้าน</p>
+        </div>
+
+        <div class="row g-3">
+            <!-- ข่าวที่ 1 -->
+            <div class="col-12">
+                <div class="content-card p-4 rounded-4">
+                    <span class="badge bg-warning text-dark mb-2">กิจกรรมพิเศษ • 12 พ.ย. 2026</span>
+                    <h5 class="fw-bold mb-1" style="color: #ffffff !important;">Double Point Day! คืนแก้ววันพุธ รับแต้มเพิ่ม 2 เท่า</h5>
+                    <p class="mb-0" style="color: #d1d5db !important;">
+                        ทุกวันพุธตลอดเดือนนี้ เพียงนำแก้วใบเดิมมาคืนที่ร้าน รับคะแนนสะสมคูณ 2 ทันทีต่อแก้ว
+                    </p>
+                </div>
+            </div>
+
+            <!-- ข่าวที่ 2 -->
+            <div class="col-12">
+                <div class="content-card p-4 rounded-4">
+                    <span class="badge bg-secondary mb-2">ประกาศระบบ • 1 พ.ย. 2026</span>
+                    <h5 class="fw-bold mb-1" style="color: #ffffff !important;">เปิดใช้งานระบบสมาชิก GREEN RETURN ออนไลน์อย่างเป็นทางการ</h5>
+                    <p class="mb-0" style="color: #d1d5db !important;">
+                        สมาชิกสามารถสมัครบัญชีและตรวจสอบยอดแต้มสะสมของตนเองผ่านเว็บไซต์ได้ตลอด 24 ชั่วโมง
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 6. ส่วนท้ายเว็บ (Footer) -->
+    <footer class="text-center py-4 border-top border-success border-opacity-25 mt-auto bg-black" style="color: #9ca3af !important;">
+        <small>© 2026 GREEN RETURN Project. All rights reserved.</small>
+    </footer>
+
+</body>
+</html>
