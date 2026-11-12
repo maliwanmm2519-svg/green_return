@@ -1,0 +1,85 @@
+<?php
+include("config.php");
+session_start();
+
+// ตรวจสอบสิทธิ์แอดมิน
+if (!isset($_SESSION['admin_user']) || $_SESSION['admin_user'] !== 'nongvear12') {
+    header("Location: login_admin.php");
+    exit();
+}
+
+// ดึงข้อมูลคำขอสมัครสมาชิกทั้งหมดจากตาราง submit_user
+$sql = "SELECT * FROM submit_user ORDER BY id DESC";
+$stmt = $conn->query($sql);
+$total_requests = $stmt->rowCount();
+?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>รายการคำขอรออนุมัติ - TEST GREEN</title>
+    <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-dark text-white">
+
+<div class="container mt-5">
+    <!-- ส่วนหัวข้อและปุ่มกลับหน้าหลัก -->
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2>📋 รายการคำขอสร้างบัญชีใหม่ 
+            <span class="badge bg-warning text-dark fs-6"><?php echo $total_requests; ?> รายการ</span>
+        </h2>
+        <a href="index.php" class="btn btn-outline-light btn-sm">← กลับหน้าหลักแอดมิน</a>
+    </div>
+
+    <!-- ตารางแสดงรายการ -->
+    <div class="card bg-secondary text-white p-4 shadow">
+        <div class="table-responsive">
+            <table class="table table-dark table-striped align-middle">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Username</th>
+                        <th>รหัสผ่าน</th>
+                        <th>ชื่อ-สกุล</th>
+                        <th>เบอร์โทร</th>
+                        <th>วันที่ส่งคำขอ</th>
+                        <th class="text-center">จัดการคำขอ</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php if ($total_requests > 0) { 
+                        while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) { 
+                    ?>
+                    <tr>
+                        <td><?php echo $row['id']; ?></td>
+                        <td><?php echo htmlspecialchars($row['user']); ?></td>
+                        <td><?php echo htmlspecialchars($row['password']); ?></td>
+                        <td><?php echo htmlspecialchars($row['name']); ?></td>
+                        <td><?php echo htmlspecialchars($row['phone']); ?></td>
+                        <td><?php echo $row['date']; ?></td>
+                        <td class="text-center">
+                            <!-- ส่ง ID และ Action ไปที่ไฟล์ approve.php -->
+                            <form action="approve.php" method="POST" class="d-inline">
+                                <input type="hidden" name="id" value="<?php echo $row['id']; ?>">
+                                <button type="submit" name="action" value="approve" class="btn btn-success btn-sm fw-bold">ยืนยัน</button>
+                                <button type="submit" name="action" value="reject" class="btn btn-danger btn-sm fw-bold" onclick="return confirm('ต้องการปฏิเสธคำขอนี้ใช่หรือไม่?');">ปฏิเสธ</button>
+                            </form>
+                        </td>
+                    </tr>
+                    <?php 
+                        } 
+                    } else { 
+                    ?>
+                    <tr>
+                        <td colspan="7" class="text-center text-muted py-4">ไม่มีคำขอสร้างบัญชีในขณะนี้</td>
+                    </tr>
+                    <?php } ?>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
