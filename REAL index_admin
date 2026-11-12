@@ -1,0 +1,139 @@
+<?php
+session_start();
+if (!isset($_SESSION['admin_user']) || $_SESSION['admin_user'] !== 'nongvear12') {
+    header("Location: login_admin.php");
+    exit();
+}
+include("config.php");
+
+// 1. นับจำนวนสมาชิกทั้งหมดในระบบ
+$stmt_users = $conn->query("SELECT COUNT(*) as total_users FROM user");
+$total_users = $stmt_users->fetch(PDO::FETCH_ASSOC)['total_users'] ?? 0;
+
+// 2. รวมคะแนนสะสมของสมาชิกทุกคน
+$stmt_points = $conn->query("SELECT SUM(point) as total_points FROM user");
+$total_points = $stmt_points->fetch(PDO::FETCH_ASSOC)['total_points'] ?? 0;
+
+// 3. เพิ่มใหม่: นับจำนวนสมาชิกใหม่ที่รอตรวจสอบจากตาราง submit_user
+$stmt_new = $conn->query("SELECT COUNT(*) as new_count FROM submit_user");
+$new_users = $stmt_new->fetch(PDO::FETCH_ASSOC)['new_count'] ?? 0;
+?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>หน้าหลักผู้ดูแลระบบ - TEST GREEN</title>
+    <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-image: url('image/pexels-ran-hua-651934360-31711372.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            min-height: 100vh;
+            color: #ffffff;
+        }
+        .dashboard-box {
+            background: rgba(14, 14, 14, 0.71);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.77);
+            margin-top: 50px;
+            border: 1px solid rgb(0, 0, 0);
+        }
+        .stat-card {
+            background: rgba(0, 0, 0, 0.52);
+            border-radius: 15px;
+            padding: 25px;
+            text-align: center;
+            border: 1px solid rgba(0, 0, 0, 0.5);
+            transition: 0.3s;
+        }
+        .stat-card:hover {
+            background: rgba(2, 8, 4, 0.53);
+            transform: translateY(-5px);
+        }
+        .stat-number {
+            font-size: 45px;
+            font-weight: bold;
+            color: #28a745;
+        }
+        .menu-btn {
+            padding: 18px;
+            font-size: 18px;
+            font-weight: bold;
+            border-radius: 12px;
+            margin-bottom: 15px;
+            display: block;
+            text-decoration: none;
+            text-align: center;
+            transition: 0.2s;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-9">
+            <div class="dashboard-box">
+                
+                <div class="d-flex justify-content-between align-items-start mb-3">
+                    <div>
+                        <h1 style="font-weight: bold; margin: 0;">TEST🌳GREEN <span class="badge bg-success fs-6">ADMIN</span></h1>
+                        <p class="text-muted mb-2">ยินดีต้อนรับผู้ดูแลระบบ: <strong><?php echo htmlspecialchars($_SESSION['admin_user']); ?></strong></p>
+                        
+                        <!-- ปุ่มแจ้งเตือนพร้อมตัวเลขสีแดง (อยู่ในกรอบเรียบร้อยแล้ว) -->
+                        <a href="submit_user.php" class="btn btn-solid theme-warning position-relative mt-1" title="ตรวจสอบสมาชิกใหม่">
+                            🙎‍♂️
+                            <?php if ($new_users > 0): ?>
+                                <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                                    <?php echo $new_users; ?>
+                                </span>
+                            <?php endif; ?>
+                        </a>
+                    </div>
+                    <a href="logout.php" class="btn btn-solid theme-danger">ออกจากระบบ</a>
+                </div>
+
+                <hr style="border-color: #ffffff;">
+
+                <h5 class="mb-3 text-light">📊 ภาพรวมระบบปัจจุบัน</h5>
+                <div class="row mb-5">
+                    <div class="col-md-6 mb-3">
+                        <div class="stat-card">
+                            <div class="text-muted mb-1">สมาชิกทั้งหมดในระบบ</div>
+                            <div class="stat-number"><?php echo number_format($total_users); ?> <span class="fs-5 text-white">คน</span></div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <div class="stat-card">
+                            <div class="text-muted mb-1">คะแนนสะสมรวมทั้งหมด</div>
+                            <div class="stat-number"><?php echo number_format($total_points); ?> <span class="fs-5 text-white">แต้ม</span></div>
+                        </div>
+                    </div>
+                </div>
+
+                <h5 class="mb-3 text-light">⚙️ เมนูการจัดการ</h5>
+                <div class="row">
+                    <div class="col-md-6">
+                        <a href="admin.php" class="menu-btn btn btn-outline theme-success text-white">
+                            👥 จัดการข้อมูลสมาชิก / เพิ่ม-ลดแต้ม
+                        </a>
+                    </div>
+                    <div class="col-md-6">
+                        <a href="add_user_admin.php" class="menu-btn btn btn-outline theme-warning text-white">
+                            ➕ เพิ่มสมาชิกใหม่เข้าระบบ
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
