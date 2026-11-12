@@ -1,0 +1,116 @@
+<?php
+session_start();
+if (!isset($_SESSION['admin_user']) || $_SESSION['admin_user'] !== 'nongvear12') {
+    header("Location: login_admin.php");
+    exit();
+}
+include("config.php");
+
+if (isset($_GET['approve_id'])) {
+    $id = $_GET['approve_id'];
+
+    $stmt = $conn->prepare("SELECT * FROM submit_user WHERE id = :id");
+    $stmt->execute([':id' => $id]);
+    $row = $stmt->fetch(PDO::FETCH_ASSOC);
+
+    if ($row) {
+        $insert = $conn->prepare("INSERT INTO user (user, password, name, phone, point, date) 
+                                  VALUES (:u, :p, :n, :ph, 0, NOW())");
+        $insert->execute([
+            ':u'  => $row['user'],
+            ':p'  => $row['password'],
+            ':n'  => $row['name'],
+            ':ph' => $row['phone']
+        ]);
+
+        $del = $conn->prepare("DELETE FROM submit_user WHERE id = :id");
+        $del->execute([':id' => $id]);
+    }
+    header("Location: submit_user.php");
+    exit();
+}
+
+if (isset($_GET['reject_id'])) {
+    $id = $_GET['reject_id'];
+    $del = $conn->prepare("DELETE FROM submit_user WHERE id = :id");
+    $del->execute([':id' => $id]);
+    
+    header("Location: submit_user.php");
+    exit();
+}
+?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ตรวจสอบการสมัครสมาชิก - TEST GREEN</title>
+    <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-image: url('image/pexels-peterdanthy-33034449.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            min-height: 100vh;
+            color: #ffffff;
+        }
+        .box-container {
+            background-color: rgba(0, 0, 0, 0.88);
+            padding: 30px;
+            border-radius: 15px;
+            margin-top: 50px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.6);
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="box-container">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <h3>🔔 คำขอสมัครสมาชิกใหม่ (รอการอนุญาต)</h3>
+            <a href="index.php" class="btn btn-secondary">⬅️ กลับหน้าหลักแอดมิน</a>
+        </div>
+        <hr style="border-color: #444;">
+
+        <table class="table table-dark table-hover">
+            <thead>
+                <tr>
+                    <th>User</th>
+                    <th>ชื่อ-สกุล</th>
+                    <th>เบอร์โทร</th>
+                    <th>วันที่สมัคร</th>
+                    <th>การจัดการ</th>
+                </tr>
+            </thead>
+            <tbody>
+            <?php
+            $stmt = $conn->query("SELECT * FROM submit_user ORDER BY id DESC");
+            $pending_list = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+            if (count($pending_list) > 0) {
+                foreach ($pending_list as $item) {
+            ?>
+                <tr>
+                    <td><?php echo htmlspecialchars($item['user']); ?></td>
+                    <td><?php echo htmlspecialchars($item['name']); ?></td>
+                    <td><?php echo htmlspecialchars($item['phone']); ?></td>
+                    <td><?php echo htmlspecialchars($item['date']); ?></td>
+                    <td>
+                        <a href="submit_user.php?approve_id=<?php echo $item['id']; ?>" class="btn btn-success btn-sm" onclick="return confirm('อนุญาตให้สมาชิกคนนี้เข้าสู่ระบบใช่หรือไม่?');">✅ อนุญาต</a>
+                        <a href="submit_user.php?reject_id=<?php echo $item['id']; ?>" class="btn btn-danger btn-sm" onclick="return confirm('ไม่อนุญาตและลบคำขอนี้ใช่หรือไม่?');">❌ ไม่อนุญาต</a>
+                    </td>
+                </tr>
+            <?php 
+                }
+            } else {
+                echo "<tr><td colspan='5' class='text-center text-muted py-4'>ไม่มีคำขอสมัครสมาชิกใหม่ในขณะนี้</td></tr>";
+            }
+            ?>
+            </tbody>
+        </table>
+    </div>
+</div>
+</body>
+</html>
