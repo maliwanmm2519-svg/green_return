@@ -7,8 +7,16 @@
     <title>สมัครสมาชิก</title>
     <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <style>
+
+        label {
+            color: #ffffff !important;
+            font-weight: sm;
+            font-size: 18px;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8);
+        }
+
         body{
-            background-image: url('https://pexels.com');
+            background-image: url('image/pexels-peterdanthy-33034448.jpg');
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
@@ -16,6 +24,8 @@
             min-height: 100vh;
             color: #ffffff;
         }
+
+
     </style>
 </head>
 <body>
@@ -47,6 +57,13 @@
                         <br>
 
                         <div class="mb-3 row">
+                            <label for="confirm_password" class="col-sm-2 col-form-label">ยืนยันรหัสผ่าน</label>
+                            <div class="col-sm-8">
+                            <input type="password" class="form-control" name="confirm_password" required>
+                            </div>
+                        </div>
+
+                        <div class="mb-3 row">
                             <label for="name" class="col-sm-3 col-form-label">ชื่อ-สกุล</label>
                             <div class="col-sm-8">
                                 <input type="text" class="form-control" name="name" placeholder="กรอกชื่อ-นามสกุล" required>
@@ -65,9 +82,9 @@
                         <div class="mb-3 row">
                             <label for="submit" class="col-sm-3 col-form-label"></label>
                             <div class="col-sm-8">
-                                <input type="submit" name="submit" class="btn btn-primary" value="บันทึก">
-                                <input type="reset" name="reset" class="btn btn-warning" value="ล้าง">
-                                <a href="login.php" class="btn btn-danger">ยกเลิก</a>
+                                <input type="submit" name="submit" class="btn-solid theme-primary" value="บันทึก">
+                                <input type="reset" name="reset" class="btn-solid theme-warning" value="ล้าง">
+                                <a href="login.php" class="btn-solid theme-danger">ยกเลิก</a>
                             </div>
                         </div>
                     </form>
