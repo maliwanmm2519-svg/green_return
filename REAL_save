@@ -1,11 +1,6 @@
 <?php include("config.php");
-$id=$_GET['id'];
-$user=$_POST['user'];
-$password=$_POST['password'];
-$name=$_POST['name'];
-$phone=$_POST['phone'];
-$point=$_POST['point'];
-
+$sql = "INSERT INTO user (user, password, name, phone, point, date) 
+        value ('$user', '$password', '$name', '$phone', '$point', NOW())";
 $sql=$conn->exec("UPDATE user SET 
 user='$user',
 password='$password',
